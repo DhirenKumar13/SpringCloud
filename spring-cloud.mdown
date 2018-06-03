@@ -1,0 +1,310 @@
+#Default properties
+
+#===================================================================================================================
+
+http://localhost:8888/limits-service/default
+
+{
+	"name": "limits-service",
+	"profiles": ["default"],
+	"label": null,
+	"version": "023961db39ba339265c669d0efd8504e3c6277ac",
+	"state": null,
+	"propertySources": [{
+		"name": "file://E:\\GitRepositories\\git-localconfig-repo/limits-service.properties",
+		"source": {
+			"limits-service.minimum": "9",
+			"limits-service.maximum": "9999"
+		}
+	}]
+}
+
+http://localhost:8888/limits-service/dev
+
+{
+	"name": "limits-service",
+	"profiles": ["dev"],
+	"label": null,
+	"version": "023961db39ba339265c669d0efd8504e3c6277ac",
+	"state": null,
+	"propertySources": [{
+		"name": "file://E:\\GitRepositories\\git-localconfig-repo/limits-service-dev.properties",
+		"source": {
+			"limits-service.minimum": "1",
+			"limits-service.maximum": "1111"
+		}
+	}, {
+		"name": "file://E:\\GitRepositories\\git-localconfig-repo/limits-service.properties",
+		"source": {
+			"limits-service.minimum": "9",
+			"limits-service.maximum": "9999"
+		}
+	}]
+}
+
+http://localhost:8888/limits-service/prod
+
+{
+	"name": "limits-service",
+	"profiles": ["prod"],
+	"label": null,
+	"version": "023961db39ba339265c669d0efd8504e3c6277ac",
+	"state": null,
+	"propertySources": [{
+		"name": "file://E:\\GitRepositories\\git-localconfig-repo/limits-service-prod.properties",
+		"source": {
+			"limits-service.minimum": "4",
+			"limits-service.maximum": "4444"
+		}
+	}, {
+		"name": "file://E:\\GitRepositories\\git-localconfig-repo/limits-service.properties",
+		"source": {
+			"limits-service.minimum": "9",
+			"limits-service.maximum": "9999"
+		}
+	}]
+}
+
+#===================================================================================================================
+
+http://localhost:9001/currency-exchange/from/USD/to/INR
+
+{
+	"id": "id",
+	"from": "USD",
+	"to": "INR",
+	"conversionMultiple": 65,
+	"serverPort": 9001
+}
+
+http://localhost:9000/currency-exchange/from/USD/to/INR
+
+{
+	"id": "id",
+	"from": "USD",
+	"to": "INR",
+	"conversionMultiple": 65,
+	"serverPort": 9000
+}
+
+http://localhost:9000/currency-exchange/from/SWF/to/INR
+
+{
+	"id": "104",
+	"from": "SWF",
+	"to": "INR",
+	"conversionMultiple": 85.00,
+	"serverPort": 9000
+}
+
+http://localhost:9000/currency-exchange/from/USD/to/INR
+
+{
+	"id": "101",
+	"from": "USD",
+	"to": "INR",
+	"conversionMultiple": 65.00,
+	"serverPort": 9000
+}
+
+#===================================================================================================================
+
+BEFORE INTEGRATING WITH EXCHANGE_SERVICE
+
+http://localhost:8100/currency-converter/from/USD/to/INR/quantity/10
+
+{
+	"id": "id",
+	"from": "USD",
+	"to": "INR",
+	"quantity": 10,
+	"totalCalculatedAmount": 650,
+	"port": 8100,
+	"currencyMultiple": 65
+}
+
+#===================================================================================================================
+
+AFTER INTEGRATING WITH EXCHANGE_SERVICE
+
+http://localhost:8100/currency-converter/from/USD/to/INR/quantity/20
+
+{
+	"id": "101",
+	"from": "USD",
+	"to": "INR",
+	"conversionMultiple": 65.00,
+	"quantity": 20,
+	"totalCalculatedAmount": 1300.00,
+	"serverPort": 9000
+}
+
+http://localhost:8100/currency-converter-feign/from/USD/to/INR/quantity/20
+
+{
+	"id": "101",
+	"from": "USD",
+	"to": "INR",
+	"conversionMultiple": 65.00,
+	"quantity": 20,
+	"totalCalculatedAmount": 1300.00,
+	"serverPort": 9000
+}
+
+#===================================================================================================================
+
+After RIBBON we get responses like
+
+http://localhost:8100/currency-converter-feign/from/EUR/to/INR/quantity/9889
+
+{
+	"id": "102",
+	"from": "EUR",
+	"to": "INR",
+	"conversionMultiple": 80.00,
+	"quantity": 9889,
+	"totalCalculatedAmount": 791120.00,
+	"serverPort": 9001
+}
+
+http://localhost:8100/currency-converter-feign/from/EUR/to/INR/quantity/9988
+
+{
+	"id": "102",
+	"from": "EUR",
+	"to": "INR",
+	"conversionMultiple": 80.00,
+	"quantity": 9988,
+	"totalCalculatedAmount": 799040.00,
+	"serverPort": 9000
+}
+
+#===================================================================================================================
+===========================================================================================================
+
+CURRENCY-CONVERSION-SERVICE	n/a (2)	(2)	UP (2) - L-185014992.wipro.com:currency-conversion-service:8101 , L-185014992.wipro.com:currency-conversion-service:8100
+CURRENCY-EXCHANGE-SERVICE	n/a (2)	(2)	UP (2) - L-185014992.wipro.com:currency-exchange-service:9000 , L-185014992.wipro.com:currency-exchange-service:9001
+LIMITS-SERVICE	n/a (1)	(1)	UP (1) - L-185014992.wipro.com:limits-service
+SPRING-CLOUD-CONFIG-SERVER	n/a (1)	(1)	UP (1) - L-185014992.wipro.com:spring-cloud-config-server:8888CURRENCY-CONVERSION-SERVICE	n/a (2)	(2)	UP (2) - L-185014992.wipro.com:currency-conversion-service:8101 , L-185014992.wipro.com:currency-conversion-service:8100
+CURRENCY-EXCHANGE-SERVICE	n/a (2)	(2)	UP (2) - L-185014992.wipro.com:currency-exchange-service:9000 , L-185014992.wipro.com:currency-exchange-service:9001
+LIMITS-SERVICE	n/a (1)	(1)	UP (1) - L-185014992.wipro.com:limits-service
+SPRING-CLOUD-CONFIG-SERVER	n/a (1)	(1)	UP (1) - L-185014992.wipro.com:spring-cloud-config-server:8888
+
+#===================================================================================================================
+===============================================================================================================
+
+After ZUUL as API Gateway ; we call the currency-exchange-service as :
+8765 : PORT of API Gateway
+
+http://localhost:8765/currency-exchange-service/currency-exchange/from/USD/to/INR
+
+{
+	"id": "101",
+	"from": "USD",
+	"to": "INR",
+	"conversionMultiple": 65.00,
+	"serverPort": 9000
+}
+
+#===================================================================================================================
+
+Now we are going via gateway to call currency-exchange-service from currency-conversion-service
+
+http://localhost:8100/currency-converter-feign/from/EUR/to/INR/quantity/10000
+
+{
+	"id": "102",
+	"from": "EUR",
+	"to": "INR",
+	"conversionMultiple": 80.00,
+	"quantity": 10000,
+	"totalCalculatedAmount": 800000.00,
+	"serverPort": 9000
+}
+
+http://localhost:8100/currency-converter-feign/from/EUR/to/INR/quantity/15000
+
+{
+	"id": "102",
+	"from": "EUR",
+	"to": "INR",
+	"conversionMultiple": 80.00,
+	"quantity": 15000,
+	"totalCalculatedAmount": 1200000.00,
+	"serverPort": 9001
+}
+
+#===================================================================================================================
+
+Even we can call currency-converter-service via api-gateway as the following :
+
+http://localhost:8765/currency-conversion-service/currency-converter/from/EUR/to/INR/quantity/10000
+
+{
+	"id": "102",
+	"from": "EUR",
+	"to": "INR",
+	"conversionMultiple": 80.00,
+	"quantity": 10000,
+	"totalCalculatedAmount": 800000.00,
+	"serverPort": 9000
+}
+
+http://localhost:8765/currency-conversion-service/currency-converter-feign/from/EUR/to/INR/quantity/90000
+
+{
+	"id": "102",
+	"from": "EUR",
+	"to": "INR",
+	"conversionMultiple": 80.00,
+	"quantity": 90000,
+	"totalCalculatedAmount": 7200000.00,
+	"serverPort": 9000
+}
+
+http://localhost:8765/currency-conversion-service/currency-converter-feign/from/EUR/to/INR/quantity/75055
+
+{
+	"id": "102",
+	"from": "EUR",
+	"to": "INR",
+	"conversionMultiple": 80.00,
+	"quantity": 75055,
+	"totalCalculatedAmount": 6004400.00,
+	"serverPort": 9001
+}
+
+#===================================================================================================================
+
+After implementing spring-cloud-starter-sleuth
+
+requestId for each request is mapped to same request accross multiple components ; the log says all ;
+
+#===================================================================================================================
+
+[currency-conversion-service,2a5022732279f0cf,2a5022732279f0cf,true] 12168 --- [io-8100-exec-10] c.i.m.c.CurrencyConverterController      :
+											com.inSpringCloud.microservices.currencyconversionservice.CurrencyConversionBean@1ec441d8 <-------
+
+
+[currency-exchange-service,2a5022732279f0cf,61716e0bfaca7fd9,true] 5656 --- [nio-9000-exec-9] c.i.m.c.CurrencyExchangeController       :
+											com.inSpringCloud.microservices.currencyexchangeservice.ExchangeValue@7f3306c1 <------------------
+[currency-exchange-service,2a5022732279f0cf,61716e0bfaca7fd9,true] 5656 --- [nio-9000-exec-9] c.i.m.c.CurrencyExchangeController       :
+											com.inSpringCloud.microservices.currencyexchangeservice.ExchangeValue@7f3306c1
+											
+										
+[currency-exchange-service,2a5022732279f0cf,b806be78343cc122,true] 5656 --- [io-9000-exec-10] c.i.m.c.CurrencyExchangeController       : 
+											com.inSpringCloud.microservices.currencyexchangeservice.ExchangeValue@6d127c18 <------------------
+[currency-exchange-service,2a5022732279f0cf,b806be78343cc122,true] 5656 --- [io-9000-exec-10] c.i.m.c.CurrencyExchangeController       : 
+											com.inSpringCloud.microservices.currencyexchangeservice.ExchangeValue@6d127c18
+
+
+
+[netflix-zuul-api-gateway-server,2a5022732279f0cf,fc2fe103cc1933ce,true] 8776 --- [nio-8765-exec-9] c.i.m.n.ZuulLoggingFilter                
+					: Request -> org.springframework.cloud.netflix.zuul.filters.pre.Servlet30RequestWrapper@3730add6 request URI -> 
+									/currency-exchange-service/currency-exchange/from/EUR/to/INR
+									
+[netflix-zuul-api-gateway-server,2a5022732279f0cf,fc2fe103cc1933ce,true] 8776 --- [nio-8765-exec-9] c.i.m.n.ZuulLoggingFilter                \
+					: Request -> org.springframework.cloud.netflix.zuul.filters.pre.Servlet30RequestWrapper@3730add6 request URI -> 
+									/currency-exchange-service/currency-exchange/from/EUR/to/INR
+									
+#===================================================================================================================
